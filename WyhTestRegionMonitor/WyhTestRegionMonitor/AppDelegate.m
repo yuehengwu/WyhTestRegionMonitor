@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "WyhMapController.h"
+#import "WyhTabBarBaseController.h"
 #import "WyhLocationManager.h"
 @interface AppDelegate ()
 
@@ -21,8 +21,7 @@
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:[WyhMapController new]];
-    self.window.rootViewController = navi;
+    self.window.rootViewController = [WyhTabBarBaseController new];
     
     [WyhLocationManager startMonitor];
     

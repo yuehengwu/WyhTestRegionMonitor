@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0907932B1FB1B75C00A7F76C /* WyhSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 090793291FB1B75C00A7F76C /* WyhSuperViewController.m */; };
+		090793381FB1B76600A7F76C /* WyhAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0907932E1FB1B76600A7F76C /* WyhAnnotation.m */; };
+		090793391FB1B76600A7F76C /* WyhLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 090793301FB1B76600A7F76C /* WyhLocationManager.m */; };
+		0907933A1FB1B76600A7F76C /* WyhAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 090793331FB1B76600A7F76C /* WyhAnnotationView.m */; };
+		0907933B1FB1B76600A7F76C /* WyhDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 090793351FB1B76600A7F76C /* WyhDataViewController.m */; };
+		0907933C1FB1B76600A7F76C /* WyhMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 090793371FB1B76600A7F76C /* WyhMapController.m */; };
+		0907933F1FB1B78100A7F76C /* UIViewController+WyhAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 0907933E1FB1B78100A7F76C /* UIViewController+WyhAlert.m */; };
 		0932F8241FB0A6F200831C0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8231FB0A6F200831C0F /* AppDelegate.m */; };
 		0932F8271FB0A6F200831C0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8261FB0A6F200831C0F /* ViewController.m */; };
 		0932F82A1FB0A6F200831C0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0932F8281FB0A6F200831C0F /* Main.storyboard */; };
@@ -15,12 +22,10 @@
 		0932F8321FB0A6F200831C0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8311FB0A6F200831C0F /* main.m */; };
 		0932F83C1FB0A6F200831C0F /* WyhTestRegionMonitorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F83B1FB0A6F200831C0F /* WyhTestRegionMonitorTests.m */; };
 		0932F8471FB0A6F200831C0F /* WyhTestRegionMonitorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8461FB0A6F200831C0F /* WyhTestRegionMonitorUITests.m */; };
-		0932F8571FB0A73600831C0F /* WyhLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8561FB0A73600831C0F /* WyhLocationManager.m */; };
-		0932F85A1FB0A74B00831C0F /* WyhMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8591FB0A74B00831C0F /* WyhMapController.m */; };
-		0932F85D1FB0A75700831C0F /* WyhSuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F85C1FB0A75700831C0F /* WyhSuperViewController.m */; };
 		0932F8601FB0A78700831C0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0932F85F1FB0A78700831C0F /* CoreLocation.framework */; };
-		0932F8631FB0A9ED00831C0F /* WyhAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8621FB0A9ED00831C0F /* WyhAnnotation.m */; };
-		0932F8661FB0AD9600831C0F /* WyhAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0932F8651FB0AD9600831C0F /* WyhAnnotationView.m */; };
+		09F0CA281FB141410012AE92 /* WyhNavBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F0CA251FB141410012AE92 /* WyhNavBaseController.m */; };
+		09F0CA291FB141410012AE92 /* WyhTabBarBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F0CA271FB141410012AE92 /* WyhTabBarBaseController.m */; };
+		DBE7F315B65D529161AAF00F /* libPods-WyhTestRegionMonitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB3051E03AD2819E9CEC984 /* libPods-WyhTestRegionMonitor.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +46,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		090793291FB1B75C00A7F76C /* WyhSuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhSuperViewController.m; sourceTree = "<group>"; };
+		0907932A1FB1B75C00A7F76C /* WyhSuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhSuperViewController.h; sourceTree = "<group>"; };
+		0907932D1FB1B76600A7F76C /* WyhAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhAnnotation.h; sourceTree = "<group>"; };
+		0907932E1FB1B76600A7F76C /* WyhAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhAnnotation.m; sourceTree = "<group>"; };
+		0907932F1FB1B76600A7F76C /* WyhLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhLocationManager.h; sourceTree = "<group>"; };
+		090793301FB1B76600A7F76C /* WyhLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhLocationManager.m; sourceTree = "<group>"; };
+		090793321FB1B76600A7F76C /* WyhAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhAnnotationView.h; sourceTree = "<group>"; };
+		090793331FB1B76600A7F76C /* WyhAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhAnnotationView.m; sourceTree = "<group>"; };
+		090793341FB1B76600A7F76C /* WyhDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhDataViewController.h; sourceTree = "<group>"; };
+		090793351FB1B76600A7F76C /* WyhDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhDataViewController.m; sourceTree = "<group>"; };
+		090793361FB1B76600A7F76C /* WyhMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhMapController.h; sourceTree = "<group>"; };
+		090793371FB1B76600A7F76C /* WyhMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhMapController.m; sourceTree = "<group>"; };
+		0907933D1FB1B78100A7F76C /* UIViewController+WyhAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WyhAlert.h"; sourceTree = "<group>"; };
+		0907933E1FB1B78100A7F76C /* UIViewController+WyhAlert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WyhAlert.m"; sourceTree = "<group>"; };
+		090793401FB1BFA600A7F76C /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0932F81F1FB0A6F200831C0F /* WyhTestRegionMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WyhTestRegionMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0932F8221FB0A6F200831C0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0932F8231FB0A6F200831C0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -57,17 +77,14 @@
 		0932F8421FB0A6F200831C0F /* WyhTestRegionMonitorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WyhTestRegionMonitorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0932F8461FB0A6F200831C0F /* WyhTestRegionMonitorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhTestRegionMonitorUITests.m; sourceTree = "<group>"; };
 		0932F8481FB0A6F200831C0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0932F8551FB0A73600831C0F /* WyhLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhLocationManager.h; sourceTree = "<group>"; };
-		0932F8561FB0A73600831C0F /* WyhLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhLocationManager.m; sourceTree = "<group>"; };
-		0932F8581FB0A74B00831C0F /* WyhMapController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhMapController.h; sourceTree = "<group>"; };
-		0932F8591FB0A74B00831C0F /* WyhMapController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhMapController.m; sourceTree = "<group>"; };
-		0932F85B1FB0A75700831C0F /* WyhSuperViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhSuperViewController.h; sourceTree = "<group>"; };
-		0932F85C1FB0A75700831C0F /* WyhSuperViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhSuperViewController.m; sourceTree = "<group>"; };
 		0932F85F1FB0A78700831C0F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0932F8611FB0A9ED00831C0F /* WyhAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhAnnotation.h; sourceTree = "<group>"; };
-		0932F8621FB0A9ED00831C0F /* WyhAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhAnnotation.m; sourceTree = "<group>"; };
-		0932F8641FB0AD9600831C0F /* WyhAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhAnnotationView.h; sourceTree = "<group>"; };
-		0932F8651FB0AD9600831C0F /* WyhAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhAnnotationView.m; sourceTree = "<group>"; };
+		09F0CA241FB141410012AE92 /* WyhNavBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhNavBaseController.h; sourceTree = "<group>"; };
+		09F0CA251FB141410012AE92 /* WyhNavBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhNavBaseController.m; sourceTree = "<group>"; };
+		09F0CA261FB141410012AE92 /* WyhTabBarBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhTabBarBaseController.h; sourceTree = "<group>"; };
+		09F0CA271FB141410012AE92 /* WyhTabBarBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhTabBarBaseController.m; sourceTree = "<group>"; };
+		32CB49831E39390DF975F77D /* Pods-WyhTestRegionMonitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WyhTestRegionMonitor.release.xcconfig"; path = "Pods/Target Support Files/Pods-WyhTestRegionMonitor/Pods-WyhTestRegionMonitor.release.xcconfig"; sourceTree = "<group>"; };
+		6AB3051E03AD2819E9CEC984 /* libPods-WyhTestRegionMonitor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WyhTestRegionMonitor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99C028D53868633124AF4FB7 /* Pods-WyhTestRegionMonitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WyhTestRegionMonitor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WyhTestRegionMonitor/Pods-WyhTestRegionMonitor.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0932F8601FB0A78700831C0F /* CoreLocation.framework in Frameworks */,
+				DBE7F315B65D529161AAF00F /* libPods-WyhTestRegionMonitor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +114,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0907932C1FB1B76600A7F76C /* Manger */ = {
+			isa = PBXGroup;
+			children = (
+				0907932D1FB1B76600A7F76C /* WyhAnnotation.h */,
+				0907932E1FB1B76600A7F76C /* WyhAnnotation.m */,
+				0907932F1FB1B76600A7F76C /* WyhLocationManager.h */,
+				090793301FB1B76600A7F76C /* WyhLocationManager.m */,
+			);
+			path = Manger;
+			sourceTree = "<group>";
+		};
+		090793311FB1B76600A7F76C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				090793321FB1B76600A7F76C /* WyhAnnotationView.h */,
+				090793331FB1B76600A7F76C /* WyhAnnotationView.m */,
+				090793341FB1B76600A7F76C /* WyhDataViewController.h */,
+				090793351FB1B76600A7F76C /* WyhDataViewController.m */,
+				090793361FB1B76600A7F76C /* WyhMapController.h */,
+				090793371FB1B76600A7F76C /* WyhMapController.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0932F8161FB0A6F200831C0F = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +146,7 @@
 				0932F8451FB0A6F200831C0F /* WyhTestRegionMonitorUITests */,
 				0932F8201FB0A6F200831C0F /* Products */,
 				0932F85E1FB0A78700831C0F /* Frameworks */,
+				B07445541B973F58A3CA0029 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,17 +167,12 @@
 				0932F8231FB0A6F200831C0F /* AppDelegate.m */,
 				0932F8251FB0A6F200831C0F /* ViewController.h */,
 				0932F8261FB0A6F200831C0F /* ViewController.m */,
-				0932F8551FB0A73600831C0F /* WyhLocationManager.h */,
-				0932F8561FB0A73600831C0F /* WyhLocationManager.m */,
-				0932F8611FB0A9ED00831C0F /* WyhAnnotation.h */,
-				0932F8621FB0A9ED00831C0F /* WyhAnnotation.m */,
-				0932F8641FB0AD9600831C0F /* WyhAnnotationView.h */,
-				0932F8651FB0AD9600831C0F /* WyhAnnotationView.m */,
-				0932F8581FB0A74B00831C0F /* WyhMapController.h */,
-				0932F8591FB0A74B00831C0F /* WyhMapController.m */,
-				0932F85B1FB0A75700831C0F /* WyhSuperViewController.h */,
-				0932F85C1FB0A75700831C0F /* WyhSuperViewController.m */,
-				0932F8541FB0A71700831C0F /* Base */,
+				0907933D1FB1B78100A7F76C /* UIViewController+WyhAlert.h */,
+				0907933E1FB1B78100A7F76C /* UIViewController+WyhAlert.m */,
+				090793401FB1BFA600A7F76C /* PrefixHeader.pch */,
+				0907932C1FB1B76600A7F76C /* Manger */,
+				090793311FB1B76600A7F76C /* View */,
+				09F0CA231FB141410012AE92 /* Base */,
 				0932F8281FB0A6F200831C0F /* Main.storyboard */,
 				0932F82B1FB0A6F200831C0F /* Assets.xcassets */,
 				0932F82D1FB0A6F200831C0F /* LaunchScreen.storyboard */,
@@ -162,19 +200,35 @@
 			path = WyhTestRegionMonitorUITests;
 			sourceTree = "<group>";
 		};
-		0932F8541FB0A71700831C0F /* Base */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
 		0932F85E1FB0A78700831C0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				0932F85F1FB0A78700831C0F /* CoreLocation.framework */,
+				6AB3051E03AD2819E9CEC984 /* libPods-WyhTestRegionMonitor.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		09F0CA231FB141410012AE92 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0907932A1FB1B75C00A7F76C /* WyhSuperViewController.h */,
+				090793291FB1B75C00A7F76C /* WyhSuperViewController.m */,
+				09F0CA241FB141410012AE92 /* WyhNavBaseController.h */,
+				09F0CA251FB141410012AE92 /* WyhNavBaseController.m */,
+				09F0CA261FB141410012AE92 /* WyhTabBarBaseController.h */,
+				09F0CA271FB141410012AE92 /* WyhTabBarBaseController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B07445541B973F58A3CA0029 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				99C028D53868633124AF4FB7 /* Pods-WyhTestRegionMonitor.debug.xcconfig */,
+				32CB49831E39390DF975F77D /* Pods-WyhTestRegionMonitor.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,9 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0932F84B1FB0A6F200831C0F /* Build configuration list for PBXNativeTarget "WyhTestRegionMonitor" */;
 			buildPhases = (
+				1D2136C0B0E33B9791A80C1F /* [CP] Check Pods Manifest.lock */,
 				0932F81B1FB0A6F200831C0F /* Sources */,
 				0932F81C1FB0A6F200831C0F /* Frameworks */,
 				0932F81D1FB0A6F200831C0F /* Resources */,
+				9A774FA3FD81507FF6CE23A5 /* [CP] Embed Pods Frameworks */,
+				08BE76A6476195197EE92E2B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -305,19 +362,74 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		08BE76A6476195197EE92E2B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WyhTestRegionMonitor/Pods-WyhTestRegionMonitor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1D2136C0B0E33B9791A80C1F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WyhTestRegionMonitor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A774FA3FD81507FF6CE23A5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WyhTestRegionMonitor/Pods-WyhTestRegionMonitor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0932F81B1FB0A6F200831C0F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F0CA281FB141410012AE92 /* WyhNavBaseController.m in Sources */,
 				0932F8271FB0A6F200831C0F /* ViewController.m in Sources */,
 				0932F8321FB0A6F200831C0F /* main.m in Sources */,
+				090793391FB1B76600A7F76C /* WyhLocationManager.m in Sources */,
+				09F0CA291FB141410012AE92 /* WyhTabBarBaseController.m in Sources */,
+				090793381FB1B76600A7F76C /* WyhAnnotation.m in Sources */,
+				0907933F1FB1B78100A7F76C /* UIViewController+WyhAlert.m in Sources */,
+				0907933C1FB1B76600A7F76C /* WyhMapController.m in Sources */,
 				0932F8241FB0A6F200831C0F /* AppDelegate.m in Sources */,
-				0932F85D1FB0A75700831C0F /* WyhSuperViewController.m in Sources */,
-				0932F8661FB0AD9600831C0F /* WyhAnnotationView.m in Sources */,
-				0932F8631FB0A9ED00831C0F /* WyhAnnotation.m in Sources */,
-				0932F85A1FB0A74B00831C0F /* WyhMapController.m in Sources */,
-				0932F8571FB0A73600831C0F /* WyhLocationManager.m in Sources */,
+				0907932B1FB1B75C00A7F76C /* WyhSuperViewController.m in Sources */,
+				0907933A1FB1B76600A7F76C /* WyhAnnotationView.m in Sources */,
+				0907933B1FB1B76600A7F76C /* WyhDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,11 +590,14 @@
 		};
 		0932F84C1FB0A6F200831C0F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99C028D53868633124AF4FB7 /* Pods-WyhTestRegionMonitor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BG7FZDPRS9;
+				DEVELOPMENT_TEAM = 29HA8N9RQ5;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/WyhTestRegionMonitor/PrefixHeader.pch";
 				INFOPLIST_FILE = WyhTestRegionMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wyh.WyhTestRegionMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -492,11 +607,14 @@
 		};
 		0932F84D1FB0A6F200831C0F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32CB49831E39390DF975F77D /* Pods-WyhTestRegionMonitor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = BG7FZDPRS9;
+				DEVELOPMENT_TEAM = 29HA8N9RQ5;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/WyhTestRegionMonitor/PrefixHeader.pch";
 				INFOPLIST_FILE = WyhTestRegionMonitor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = wyh.WyhTestRegionMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";

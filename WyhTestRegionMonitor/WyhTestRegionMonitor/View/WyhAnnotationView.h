@@ -10,12 +10,12 @@
 
 @class WyhAnnotation;
 
-@interface WyhAnnotationView : MKAnnotationView
+@interface WyhAnnotationView : MKPinAnnotationView
 
 + (MKPinAnnotationView *)createAnnotationViewWithAnnotation:(WyhAnnotation *)annotation ReuseIdentifier:(NSString *)reuseIdentifier;
 
-+ (MKAnnotationView *)createCustomAnnotationViewWithAnnotation:(WyhAnnotation *)annotation ReuseIdentifier:(NSString *)reuseIdentifier;
+//+ (MKAnnotationView *)createCustomAnnotationViewWithAnnotation:(WyhAnnotation *)annotation ReuseIdentifier:(NSString *)reuseIdentifier;
 
-
+- (void)updateAccessoryView;
 
 @end
