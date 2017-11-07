@@ -7,8 +7,13 @@
 //
 
 #import "WyhDataViewController.h"
+#import "WyhLocationManager.h"
+#import "WyhDataTableViewCell.h"
 
-@interface WyhDataViewController ()
+@interface WyhDataViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 @end
 
@@ -16,22 +21,95 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.title = @"数据";
+    
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(64.0f, 0, 0, 0));
+    }];
+    
+    [self.tableView.mj_header beginRefreshing];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)reloadData {
+    [self.tableView reloadData];
+    [self.tableView.mj_header endRefreshing];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - tableView delegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
 }
-*/
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WyhDataTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WyhDataTableViewCell" forIndexPath:indexPath];
+    cell.selectionStyle = 0;
+    NSDictionary *dataDic = self.dataSource[indexPath.row];
+    [cell setDataDic:dataDic];
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
+#pragma mark - lazy
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reloadData)];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        [_tableView registerNib:[UINib nibWithNibName:@"WyhDataTableViewCell" bundle:nil] forCellReuseIdentifier:@"WyhDataTableViewCell"];
+        _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.estimatedSectionHeaderHeight = 0;
+    }
+    return _tableView;
+}
+
+- (NSMutableArray *)dataSource {
+    _dataSource = [NSMutableArray arrayWithArray:[WyhLocationManager getUserInfosFromUD]];
+    //需要倒序
+    [_dataSource sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDictionary *dict1 = obj1;
+        NSDictionary *dict2 = obj2;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *date1= [dateFormatter dateFromString:dict1[@"time"]];
+        NSDate *date2= [dateFormatter dateFromString:dict2[@"time"]];
+        
+        if (date1 == [date1 earlierDate: date2]) { //不使用intValue比较无效
+            return NSOrderedDescending;//降序
+        }else if (date1 == [date1 laterDate: date2]) {
+            return NSOrderedAscending;//升序
+        }else{
+            return NSOrderedSame;//相等
+        }
+    }];
+    return _dataSource;
+}
 
 @end

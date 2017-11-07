@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0A57122772B701303C9759BC54DDBF1C'
+               BlueprintIdentifier = 'AB31E86B357AC6DC7F9DF9C85273A3E9'
                BlueprintName = 'Pods-WyhTestRegionMonitor'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-WyhTestRegionMonitor.a'>

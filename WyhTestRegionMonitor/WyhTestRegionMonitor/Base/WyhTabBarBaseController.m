@@ -22,16 +22,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self addChildViewControllerWithvcName:[WyhMapController new] title:@"Map" imageName:nil selectedImage:nil];
-    [self addChildViewControllerWithvcName:[WyhDataViewController new] title:@"Data" imageName:nil selectedImage:nil];
+    [self addChildViewControllerWithvcName:[WyhMapController new] title:@"Map" imageName:@"map" selectedImage:@"map"];
+    [self addChildViewControllerWithvcName:[WyhDataViewController new] title:@"Data" imageName:@"data" selectedImage:@"data"];
     
 }
 
 - (void)addChildViewControllerWithvcName:(UIViewController *)vcName title:(NSString *)title imageName:(NSString *)imageName selectedImage:(NSString *)selectedImage {
     
     WyhNavBaseController *NC = [[WyhNavBaseController alloc]initWithRootViewController:vcName];
-    NC.title = title;
-//    NC.topViewController.title = title;
+    NC.topViewController.title = title;
+    NC.tabBarItem.image = [UIImage imageNamed:imageName];
+    NC.tabBarItem.selectedImage = [UIImage imageNamed:selectedImage];
     [self addChildViewController:NC];
 }
 

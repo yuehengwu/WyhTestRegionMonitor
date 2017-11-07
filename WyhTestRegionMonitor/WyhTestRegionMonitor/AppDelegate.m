@@ -19,10 +19,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [WyhTabBarBaseController new];
     
+    if ([WyhLocationManager shareInstance].annotationArr.count > 0) {
+        [WyhLocationManager logAnnotationsInUD];
+        for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
+            [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测
+        }
+    }
     [WyhLocationManager startMonitor];
     
     return YES;

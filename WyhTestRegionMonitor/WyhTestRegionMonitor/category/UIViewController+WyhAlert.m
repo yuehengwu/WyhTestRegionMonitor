@@ -19,17 +19,21 @@
        TextFieldStyles:(NSArray<wyhTextFieldStyleBlock> *(^)(void))styles {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:subtitle preferredStyle:(UIAlertControllerStyleAlert)];
-    for (wyhTextFieldStyleBlock block in styles()) {
-        [alertController addTextFieldWithConfigurationHandler:block];
+    
+    if (styles) {
+        for (wyhTextFieldStyleBlock block in styles()) {
+            [alertController addTextFieldWithConfigurationHandler:block];
+        }
     }
+    
     if (canceltitle) {
         [alertController addAction:[UIAlertAction actionWithTitle:canceltitle style:(UIAlertActionStyleCancel) handler:^(UIAlertAction * _Nonnull action) {
-            okhandler(action, alertController);
+            cancelhandler(action, alertController);
         }]];
     }
     if (oktitle) {
         [alertController addAction:[UIAlertAction actionWithTitle:oktitle style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
-            cancelhandler(action, alertController);
+            okhandler(action, alertController);
         }]];
     }
     

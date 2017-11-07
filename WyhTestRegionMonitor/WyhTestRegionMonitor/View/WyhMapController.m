@@ -5,7 +5,6 @@
 //  Created by wyh on 2017/11/6.
 //  Copyright © 2017年 wyh. All rights reserved.
 //
-#import "UIViewController+WyhAlert.h"
 #import "WyhMapController.h"
 #import "WyhAnnotationView.h"
 #import "WyhLocationManager.h"
@@ -20,7 +19,7 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 @property (nonatomic, strong) UIButton *userLocationButton;
 @property (nonatomic, strong) UIButton *switchDefenseButton;
 
-
+@property (nonatomic, assign) NSInteger currentDefenseAreaIndex;
 
 @property (nonatomic, strong) WyhAnnotation *currentTempAnnotation;
 
@@ -35,18 +34,11 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     self.navigationItem.title = @"电子围栏";
     
     
-    
     [self configUI];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add"] style:(UIBarButtonItemStylePlain) target:self action:@selector(addCurrentLocationRegionOverLay)];
+    [self configGestureRecognizer];
     
-    UILongPressGestureRecognizer *longpressed = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPressedGestureAction:)];
-
-//    UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragMapViewWhenDone:)];
-//    dragGesture.delegate = self;
-    [self.mapView addGestureRecognizer:longpressed];
-    
-    //
+    // 初始化 各个防区
     if ([WyhLocationManager shareInstance].annotationArr.count != 0) {
         for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
             [self addAnnotation:annotation];
@@ -56,17 +48,50 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self zoomToUserLocationWithAnimated];
+}
+
 - (void)configUI {
     [self.view addSubview:self.mapView];
-    
+    [self.view addSubview:self.switchDefenseButton];
     [self.view addSubview:self.userLocationButton];
     
     [self.userLocationButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-20);
-        make.bottom.equalTo(self.view).offset(-100);
+        make.bottom.equalTo(self.view).offset(-80);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
     }];
+    
+    [self.switchDefenseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(20);
+        make.bottom.equalTo(self.view).offset(-80);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
+}
+
+- (void)prepareNavigation {
+    UIButton *rightItem = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [rightItem addTarget:self action:@selector(addCurrentLocationRegionOverLay) forControlEvents:(UIControlEventTouchUpInside)];
+//    [rightItem setBackgroundImage:[UIImage imageNamed:@"add"] forState:(UIControlStateNormal)];
+    rightItem.frame = CGRectMake(0, 0, 44, 44);
+    [rightItem setTitle:@"add" forState:(UIControlStateNormal)];
+    [rightItem setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
+    rightItem.contentHorizontalAlignment =UIControlContentHorizontalAlignmentRight;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightItem];
+}
+
+- (void)configGestureRecognizer {
+    
+    UILongPressGestureRecognizer *longpressed = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(LongPressedGestureAction:)];
+    
+//    UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragMapViewWhenDone:)];
+//    dragGesture.delegate = self;
+//    [self.mapView addGestureRecognizer:dragGesture];
+    [self.mapView addGestureRecognizer:longpressed];
 }
 
 #pragma mark - private function
@@ -78,8 +103,21 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 }
 
 - (void)switchDefenseLocationWithAnimated {
-    
-//    NSInteger currentIndex = []
+    _currentDefenseAreaIndex = (_currentDefenseAreaIndex+1)<[WyhLocationManager shareInstance].annotationArr.count?(_currentDefenseAreaIndex+1):0; //找到下一个引用计数
+    if ([WyhLocationManager shareInstance].annotationArr.count <= 0) {
+        return;
+    }
+    WyhAnnotation *nextAnnotation = [WyhLocationManager shareInstance].annotationArr[_currentDefenseAreaIndex];
+    if (nextAnnotation) {
+        for (WyhAnnotation *annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[WyhAnnotation class]]) {
+                if ([annotation.identifier isEqualToString:nextAnnotation.identifier]) {
+                    [self selectAnnotation:annotation];
+                    break;
+                }
+            }
+        }
+    }
 }
 
 - (void)addCurrentLocationRegionOverLay {
@@ -88,10 +126,17 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     [self addAnnotation:annotation];
 }
 
+#pragma mark - mapView selector
+/**
+ 选择一个标签
+ */
 - (void)selectAnnotation:(WyhAnnotation *)annotation {
     [self.mapView selectAnnotation:annotation animated:YES]; // 显示新AnnotationView自动选中
 }
 
+/**
+ 跳转到指定位置
+ */
 - (void)zoomMapViewToLocation:(CLLocation *)location
          withLatitudeDistance:(CLLocationDistance)latitudeDistance
             longitudeDistance:(CLLocationDistance)longitudeDistance {
@@ -101,7 +146,6 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         [self.mapView setRegion:region animated:YES];
     }
 }
-
 
 /**
  添加一个标签
@@ -116,6 +160,9 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 //    [self.mapView addOverlay:[MKCircle circleWithCenterCoordinate:annotation.coordinate radius:annotation.radius]];
 }
 
+/**
+ 移除一个标签
+ */
 - (void)removeAnnotation:(WyhAnnotation *)annotation {
     if ([self.mapView.annotations containsObject:annotation]) {
         [self.mapView removeAnnotation:annotation];
@@ -147,10 +194,10 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     if (longGesture.state == UIGestureRecognizerStateBegan) {
         CGPoint touchPoint = [longGesture locationInView:self.mapView];
         CLLocationCoordinate2D pointCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        WyhAnnotation *annotation = [WyhAnnotation geoReverseAnnotationWithCoordinate:pointCoordinate Radius:500 Identifier:@"test" completeHandler:^(WyhAnnotation *anno) {
+        [WyhAnnotation annotationWithCoordinate:pointCoordinate CompleteHandler:^(WyhAnnotation *anno) {
             NSLog(@"最后得到的%@",anno.description);
+            [self addAnnotation:anno];
         }];
-        [self addAnnotation:annotation];
 //        [annotation reverseGeocodeLocationWithCompleteHandler:^(WyhAnnotation *anno) {
 //            NSLog(@"最后得到的%@",anno.description);
 //        }];
@@ -163,11 +210,10 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         
         CGPoint touchPoint = [panGesture locationInView:self.mapView];
         CLLocationCoordinate2D pointCoordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        WyhAnnotation *annotation = [WyhAnnotation geoReverseAnnotationWithCoordinate:pointCoordinate Radius:500 Identifier:@"test" completeHandler:^(WyhAnnotation *anno) {
+        [WyhAnnotation annotationWithCoordinate:pointCoordinate CompleteHandler:^(WyhAnnotation *anno) {
             NSLog(@"最后得到的%@",anno.description);
+            [self addAnnotation:anno];
         }];
-    
-        [self addAnnotation:annotation];
     }
     
 }
@@ -192,7 +238,7 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[MKCircle class]]) {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
-        circleRenderer.lineWidth = 1.0f;
+        circleRenderer.lineWidth = 0.5f;
         circleRenderer.strokeColor = [UIColor redColor];
         circleRenderer.fillColor = [[UIColor greenColor] colorWithAlphaComponent:.4f];
         
@@ -242,8 +288,15 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         
     }else {
         // delete defense region
-        [self removeAnnotation:annotation];
-        [WyhLocationManager stopMonitorRegionWithAnnotation:annotation];
+        [self showAlertTitle:@"确定删除当前防区吗？" Subtitle:nil OKtitle:@"确定" CancelTitle:@"取消" OKAction:^(UIAlertAction *action, UIAlertController *alertController) {
+            
+            [self removeAnnotation:annotation];
+            [WyhLocationManager stopMonitorRegionWithAnnotation:annotation];
+            
+        } CancelAction:^(UIAlertAction *action, UIAlertController *alertController) {
+            
+        } TextFieldStyles:nil];
+        
     }
 }
 
@@ -268,8 +321,8 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         [(WyhAnnotationView *)view updateAccessoryView]; //更新按钮状态
         WyhAnnotation *annotation = (WyhAnnotation *)view.annotation;
         if (annotation.radius != 0) {
-            [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
-//            [self zoomMapViewToLocation:[[CLLocation alloc]initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude] withLatitudeDistance:kDefaultLocationDistance longitudeDistance:kDefaultLocationDistance];
+//            [self.mapView setCenterCoordinate:annotation.coordinate animated:YES];
+            [self zoomMapViewToLocation:[[CLLocation alloc]initWithLatitude:annotation.coordinate.latitude longitude:annotation.coordinate.longitude] withLatitudeDistance:kDefaultLocationDistance longitudeDistance:kDefaultLocationDistance];
         }
     }
 }
@@ -321,9 +374,8 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     if (!_userLocationButton) {
         _userLocationButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_userLocationButton  addTarget:self action:@selector(zoomToUserLocationWithAnimated) forControlEvents:(UIControlEventTouchUpInside)];
-//        _userLocationButton.frame = CGRectMake(20, self.view.bounds.size.height - 100, 40, 40);
-        _userLocationButton.layer.cornerRadius = 20;
-        _userLocationButton.backgroundColor = [UIColor redColor];
+        [_userLocationButton setBackgroundImage:[UIImage imageNamed:@"userlocation"] forState:(UIControlStateNormal)];
+//        _userLocationButton.layer.cornerRadius = 20;
     }
     return _userLocationButton;
 }
@@ -331,9 +383,9 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 - (UIButton *)switchDefenseButton {
     if (!_switchDefenseButton) {
         _switchDefenseButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        [_switchDefenseButton  addTarget:self action:@selector(zoomToUserLocationWithAnimated) forControlEvents:(UIControlEventTouchUpInside)];
-        _switchDefenseButton.layer.cornerRadius = 20;
-        _switchDefenseButton.backgroundColor = [UIColor redColor];
+        [_switchDefenseButton  addTarget:self action:@selector(switchDefenseLocationWithAnimated) forControlEvents:(UIControlEventTouchUpInside)];
+        [_switchDefenseButton setBackgroundImage:[UIImage imageNamed:@"switch"] forState:(UIControlStateNormal)];
+//        _switchDefenseButton.layer.cornerRadius = 20;
     }
     return _switchDefenseButton;
 }

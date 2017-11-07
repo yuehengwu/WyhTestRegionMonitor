@@ -10,4 +10,10 @@
 
 @interface WyhSuperViewController : UIViewController
 
+
+/**
+ 子类初始化navigationItem
+ */
+- (void)prepareNavigation;
+
 @end
