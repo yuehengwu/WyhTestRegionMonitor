@@ -28,14 +28,15 @@
     [self.window makeKeyAndVisible];
     self.window.rootViewController = [WyhTabBarBaseController new];
     
-    if ([WyhLocationManager shareInstance].annotationArr.count > 0) {
-        [WyhLocationManager logAnnotationsInUD];
-        for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
-            [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测
+    //如果app是由CoreLocation event唤醒的 则需要开始监听
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
+//        [WyhLocationManager startMonitor];
+        if ([WyhLocationManager shareInstance].annotationArr.count != 0) {
+            for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
+                [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测各个防区
+            }
         }
     }
-    [WyhLocationManager startMonitor];
-    
     return YES;
 }
 
