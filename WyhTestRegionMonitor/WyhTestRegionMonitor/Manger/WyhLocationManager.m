@@ -9,7 +9,7 @@
 #import "WyhLocationManager.h"
 
 
-static CGFloat const minFilter = 200;
+static CGFloat const minFilter = 50;
 static NSString * const saveAnnotationKey = @"saveAnnotationKey";
 static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 
@@ -62,12 +62,28 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 
 #pragma mark - UD
 
-+ (void)saveUserCurrentLocationInfoWithTitle:(NSString *)title Location:(CLLocation *)location {
++ (BOOL)saveUserCurrentLocationInfoWithTitle:(NSString *)title Location:(CLLocation *)location {
     NSArray *userInfos = [USER_DEFAULT objectForKey:saveUserLocationInfoKey];
     NSMutableArray *tempArr = [NSMutableArray arrayWithArray:userInfos];
     NSDictionary *dictionary = @{@"title":title,@"longitude":@(location.coordinate.longitude),@"latitude":@(location.coordinate.latitude),@"time":[NSDate currentTime]};
     [tempArr addObject:dictionary];
     [USER_DEFAULT setValue:tempArr forKey:saveUserLocationInfoKey];
+    return [USER_DEFAULT synchronize];
+}
+
++ (BOOL)removeUserLocationInfoFromTime:(NSString *)time {
+    NSArray *userInfos = [USER_DEFAULT objectForKey:saveUserLocationInfoKey];
+    NSMutableArray *tempCopyArr = [NSMutableArray arrayWithArray:userInfos];
+    NSInteger idx = 0;
+    for (NSDictionary *info in userInfos) {
+        if ([info[@"time"] isEqualToString:time]) {
+            [tempCopyArr removeObjectAtIndex:idx];
+            break;
+        }
+        idx++;
+    }
+    [USER_DEFAULT setValue:tempCopyArr forKey:saveUserLocationInfoKey];
+    return [USER_DEFAULT synchronize];
 }
 
 + (NSArray *)getUserInfosFromUD {
@@ -92,36 +108,42 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
     return tempArr;
 }
 
-+ (void)saveAnnotation:(WyhAnnotation *)annotation {
++ (BOOL)saveAnnotation:(WyhAnnotation *)annotation {
     NSArray *annoArr = [USER_DEFAULT objectForKey:saveAnnotationKey];
     if (!annoArr) {
         annoArr = [NSArray new];
     }
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:annotation];
     if ([annoArr containsObject:data]) {
-        return;
+        return NO;
     }
     annoArr = [annoArr arrayByAddingObject:data];
-    
     [USER_DEFAULT setValue:annoArr  forKey:saveAnnotationKey];
+    return [USER_DEFAULT synchronize];
 }
 
-+ (void)removeAnnotation:(WyhAnnotation *)annotation {
++ (BOOL)removeAnnotation:(WyhAnnotation *)annotation {
     NSArray *annoArr = [USER_DEFAULT objectForKey:saveAnnotationKey];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:annotation];
     NSMutableArray *tempCopyArr = [NSMutableArray arrayWithArray:annoArr];
     if ([tempCopyArr containsObject:data]) {
         [tempCopyArr removeObject:data];
         [USER_DEFAULT setValue:tempCopyArr  forKey:saveAnnotationKey];
+        return [USER_DEFAULT synchronize];
+    }else {
+        return NO;
     }
 }
 
-- (WyhAnnotation *)findAnnotationFromIdentifier:(NSString *)identifier {
+- (WyhAnnotation *)findAnnotationFromRegion:(CLCircularRegion *)region {
     
     for (WyhAnnotation *anno in self.annotationArr) {
-        if ([anno.identifier isEqualToString:identifier]) {
+        if ([region.identifier isEqualToString:anno.identifier]) {
             return anno;
         }
+//        if ([region containsCoordinate:anno.coordinate]) {
+//            return anno; //找到地区 返回
+//        }
     }
     return nil;
 }
@@ -137,8 +159,9 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 }
 
 + (void)startMonitorRegionWithAnnotation:(WyhAnnotation *)annotation {
-    NSLog(@"开始监测'%@'防区",annotation.title);
-    CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:annotation.coordinate radius:annotation.radius identifier:annotation.identifier];
+//    NSLog(@"开始监测'%@'防区",annotation);
+    CLLocationCoordinate2D WGScoordinate = [TQLocationConverter transformFromGCJToWGS:annotation.coordinate]; //转换坐标系
+    CLCircularRegion *region = [[CLCircularRegion alloc]initWithCenter:WGScoordinate radius:annotation.radius identifier:annotation.identifier];
     [self saveAnnotation:annotation]; //save the region into UD
     [[self shareInstance].locationManager startMonitoringForRegion:region];//开始监测区域
     
@@ -171,36 +194,54 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 #pragma mark - delegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    
-    self.userLocation = locations.firstObject;
+    CLLocation *recentLocation = locations.lastObject;
+    if ((recentLocation.coordinate.latitude == self.userLocation.coordinate.latitude && recentLocation.coordinate.longitude == self.userLocation.coordinate.longitude) || !self.userLocation) {
+        self.userLocation = recentLocation;
+        return;
+    }
+    self.userLocation = recentLocation;
     [WyhLocationManager reverseGeocodeLocationWithCoordinate:self.userLocation.coordinate completeHandler:^(CLPlacemark *placemark) {
-        NSString *locationPlace = [NSString stringWithFormat:@"%@", placemark.thoroughfare];
+        NSString *locationPlace = [NSString stringWithFormat:@"%@%@", placemark.subLocality,placemark.thoroughfare];
         NSString *tip = [NSString stringWithFormat:@"您经过了:%@",locationPlace];
 //        wyh_async_safe_dispatch(^{
             [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:self.userLocation];
 //        });
     }];
-//    [WyhLocationManager pushNotificationWithMsg:@"update location ing...(for test)"];
+    [WyhLocationManager pushNotificationWithMsg:@"update location ing...(for test)"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    WyhAnnotation *annodation = [self findAnnotationFromIdentifier:region.identifier];
+    
+    [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"监测到您已经进入:%@防区",region.identifier]];
+    
+    WyhAnnotation *annodation = [self findAnnotationFromRegion:(CLCircularRegion *)region];
     if (!annodation) {
         return;
     }
     NSString *tip = [NSString stringWithFormat:@"您已进入%@(防区)",annodation.title];
-    [WyhLocationManager pushNotificationWithMsg:tip];
+//    [WyhLocationManager pushNotificationWithMsg:tip];
     [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:[[CLLocation alloc] initWithLatitude:annodation.coordinate.latitude longitude:annodation.coordinate.longitude]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
-    WyhAnnotation *annodation = [self findAnnotationFromIdentifier:region.identifier];
+    [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"监测到您已经离开:%@防区",region.identifier]];
+    
+    WyhAnnotation *annodation = [self findAnnotationFromRegion:(CLCircularRegion *)region];
     if (!annodation) {
         return;
     }
     NSString *tip = [NSString stringWithFormat:@"您已离开%@(防区)",annodation.title];
-    [WyhLocationManager pushNotificationWithMsg:tip];
+//    [WyhLocationManager pushNotificationWithMsg:tip];
     [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:[[CLLocation alloc] initWithLatitude:annodation.coordinate.latitude longitude:annodation.coordinate.longitude]];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
+    [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"%@已开始监测",region.identifier]];
+}
+
+// 监控region失败
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
+    [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"%@监测失败",region.identifier]];
 }
 
 #pragma mark - Overwrite

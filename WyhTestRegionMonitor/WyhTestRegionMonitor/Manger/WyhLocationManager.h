@@ -12,8 +12,6 @@
 
 #define USER_DEFAULT [NSUserDefaults standardUserDefaults]
 
-static const CLLocationDistance kGeoFencingRadiusDefault = 100.f;
-
 @interface WyhLocationManager : NSObject
 
 @property (nonatomic, strong) NSMutableArray *annotationArr;
@@ -29,6 +27,12 @@ static const CLLocationDistance kGeoFencingRadiusDefault = 100.f;
 + (void)startMonitorRegionWithAnnotation:(WyhAnnotation *)annotation;
 
 + (void)stopMonitorRegionWithAnnotation:(WyhAnnotation *)annotation;
+
+#pragma mark - UD
+
++ (BOOL)saveUserCurrentLocationInfoWithTitle:(NSString *)title Location:(CLLocation *)location;
+
++ (BOOL)removeUserLocationInfoFromTime:(NSString *)time;
 
 /**
  打印所有添加过的防区信息

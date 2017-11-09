@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UILabel *latitude;
-@property (weak, nonatomic) IBOutlet UILabel *longtitude;
+@property (weak, nonatomic) IBOutlet UILabel *longitude;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 - (void)setDataDic:(NSDictionary *)dict;

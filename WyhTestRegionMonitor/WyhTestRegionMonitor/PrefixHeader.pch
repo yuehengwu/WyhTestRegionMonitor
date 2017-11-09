@@ -16,5 +16,6 @@
 #import "regionHeader.h"
 #import "NSDate+WyhCurrentTime.h"
 #import "MJRefresh.h"
+#import "TQLocationConverter.h"
 
 #endif /* PrefixHeader_pch */

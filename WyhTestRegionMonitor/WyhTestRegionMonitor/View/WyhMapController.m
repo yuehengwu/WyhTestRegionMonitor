@@ -99,6 +99,12 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 - (void)zoomToUserLocationWithAnimated {
     CLLocation *location = self.mapView.userLocation.location;
     
+    //Test
+    CLLocationCoordinate2D coordinateGCJ = location.coordinate;
+    CLLocationCoordinate2D coordinateWGS = [TQLocationConverter transformFromGCJToWGS:coordinateGCJ];
+    NSLog(@"当前用户定位在GCJ坐标系(%f, %f)", coordinateGCJ.latitude, coordinateGCJ.longitude);
+    NSLog(@"当前用户定位在WGS坐标系(%f, %f)", coordinateWGS.latitude, coordinateWGS.longitude);
+    
     [self zoomMapViewToLocation:location withLatitudeDistance:kDefaultLocationDistance longitudeDistance:kDefaultLocationDistance];
 }
 

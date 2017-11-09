@@ -18,9 +18,16 @@
 - (void)setDataDic:(NSDictionary *)dict {
     
     self.title.text = dict[@"title"];
+    NSString *latitude = [NSString stringWithFormat:@"%@",dict[@"latitude"]];
+    NSString *longitude = [NSString stringWithFormat:@"%@",dict[@"longitude"]];
+    if (latitude.length >= 7) {
+        latitude  = [latitude substringWithRange:NSMakeRange(0, 7)];
+        longitude = [longitude substringWithRange:NSMakeRange(0, 7)];
+    }
     
-    self.latitude.text = [NSString stringWithFormat:@"纬度:%.2g",[dict[@"latitude"] floatValue]];
-    self.longtitude.text = [NSString stringWithFormat:@"经度:%.2g",[dict[@"longtitude"] floatValue]];
+    self.latitude.text = [NSString stringWithFormat:@"纬度:%@",latitude];
+    self.longitude.text = [NSString stringWithFormat:@"经度:%@",longitude];
+
     self.timeLabel.text = dict[@"time"];
     
 }

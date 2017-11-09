@@ -27,6 +27,7 @@
 		0938614D1FB1E6E900725AC2 /* NSDate+WyhCurrentTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 0938614C1FB1E6E900725AC2 /* NSDate+WyhCurrentTime.m */; };
 		093861521FB206DD00725AC2 /* WyhDataTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 093861501FB206DD00725AC2 /* WyhDataTableViewCell.m */; };
 		093861531FB206DD00725AC2 /* WyhDataTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093861511FB206DD00725AC2 /* WyhDataTableViewCell.xib */; };
+		093EF4C71FB2D19A00953C3E /* TQLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 093EF4C61FB2D19A00953C3E /* TQLocationConverter.m */; };
 		09F0CA281FB141410012AE92 /* WyhNavBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F0CA251FB141410012AE92 /* WyhNavBaseController.m */; };
 		09F0CA291FB141410012AE92 /* WyhTabBarBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09F0CA271FB141410012AE92 /* WyhTabBarBaseController.m */; };
 		DBE7F315B65D529161AAF00F /* libPods-WyhTestRegionMonitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB3051E03AD2819E9CEC984 /* libPods-WyhTestRegionMonitor.a */; };
@@ -90,6 +91,8 @@
 		0938614F1FB206DD00725AC2 /* WyhDataTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WyhDataTableViewCell.h; sourceTree = "<group>"; };
 		093861501FB206DD00725AC2 /* WyhDataTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WyhDataTableViewCell.m; sourceTree = "<group>"; };
 		093861511FB206DD00725AC2 /* WyhDataTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WyhDataTableViewCell.xib; sourceTree = "<group>"; };
+		093EF4C51FB2D19A00953C3E /* TQLocationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TQLocationConverter.h; sourceTree = "<group>"; };
+		093EF4C61FB2D19A00953C3E /* TQLocationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TQLocationConverter.m; sourceTree = "<group>"; };
 		09F0CA241FB141410012AE92 /* WyhNavBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhNavBaseController.h; sourceTree = "<group>"; };
 		09F0CA251FB141410012AE92 /* WyhNavBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WyhNavBaseController.m; sourceTree = "<group>"; };
 		09F0CA261FB141410012AE92 /* WyhTabBarBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WyhTabBarBaseController.h; sourceTree = "<group>"; };
@@ -184,6 +187,7 @@
 				0932F8261FB0A6F200831C0F /* ViewController.m */,
 				090793401FB1BFA600A7F76C /* PrefixHeader.pch */,
 				0938614E1FB1EBE300725AC2 /* regionHeader.h */,
+				093EF4C41FB2D19A00953C3E /* TQLocationConverter */,
 				093861441FB1E1F900725AC2 /* category */,
 				0907932C1FB1B76600A7F76C /* Manger */,
 				090793311FB1B76600A7F76C /* View */,
@@ -235,6 +239,15 @@
 				0938614C1FB1E6E900725AC2 /* NSDate+WyhCurrentTime.m */,
 			);
 			path = category;
+			sourceTree = "<group>";
+		};
+		093EF4C41FB2D19A00953C3E /* TQLocationConverter */ = {
+			isa = PBXGroup;
+			children = (
+				093EF4C51FB2D19A00953C3E /* TQLocationConverter.h */,
+				093EF4C61FB2D19A00953C3E /* TQLocationConverter.m */,
+			);
+			path = TQLocationConverter;
 			sourceTree = "<group>";
 		};
 		09F0CA231FB141410012AE92 /* Base */ = {
@@ -461,6 +474,7 @@
 				093861491FB1E21600725AC2 /* UIAlertController+Window.m in Sources */,
 				0932F8321FB0A6F200831C0F /* main.m in Sources */,
 				090793391FB1B76600A7F76C /* WyhLocationManager.m in Sources */,
+				093EF4C71FB2D19A00953C3E /* TQLocationConverter.m in Sources */,
 				09F0CA291FB141410012AE92 /* WyhTabBarBaseController.m in Sources */,
 				0938614D1FB1E6E900725AC2 /* NSDate+WyhCurrentTime.m in Sources */,
 				090793381FB1B76600A7F76C /* WyhAnnotation.m in Sources */,

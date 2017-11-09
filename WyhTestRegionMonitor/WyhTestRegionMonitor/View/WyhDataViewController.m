@@ -72,6 +72,35 @@
     return 80;
 }
 
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dataDic = self.dataSource[indexPath.row];
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:(UITableViewRowActionStyleDefault) title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        if ([WyhLocationManager removeUserLocationInfoFromTime:dataDic[@"time"]]){
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:(UITableViewRowAnimationAutomatic)];
+        }
+    }];
+    action.backgroundColor = [UIColor redColor];
+    return @[action];
+}
+
+-(UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dataDic = self.dataSource[indexPath.row];
+    if (@available(iOS 11.0, *)) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            if ([WyhLocationManager removeUserLocationInfoFromTime:dataDic[@"time"]]){
+                wyh_async_safe_dispatch(^{
+                    [self.tableView reloadData];
+                });
+            }
+        }];
+        deleteAction.backgroundColor = [UIColor redColor];
+        return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction]];
+    } else {
+        // Fallback on earlier versions
+        return nil;
+    }
+}
+
 #pragma mark - lazy
 
 - (UITableView *)tableView {
