@@ -30,7 +30,7 @@
     
     //如果app是由CoreLocation event唤醒的 则需要开始监听
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
-//        [WyhLocationManager startMonitor];
+        [WyhLocationManager startMonitor];
         if ([WyhLocationManager shareInstance].annotationArr.count != 0) {
             for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
                 [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测各个防区

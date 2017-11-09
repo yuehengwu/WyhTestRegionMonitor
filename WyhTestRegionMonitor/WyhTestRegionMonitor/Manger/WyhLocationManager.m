@@ -35,7 +35,7 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 
 - (instancetype)init {
     if (self = [super init]) {
-        [self.locationManager startUpdatingLocation];
+//        [self.locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -204,11 +204,9 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
     [WyhLocationManager reverseGeocodeLocationWithCoordinate:self.userLocation.coordinate completeHandler:^(CLPlacemark *placemark) {
         NSString *locationPlace = [NSString stringWithFormat:@"%@%@", placemark.subLocality,placemark.thoroughfare];
         NSString *tip = [NSString stringWithFormat:@"您经过了:%@",locationPlace];
-//        wyh_async_safe_dispatch(^{
             [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:self.userLocation];
-//        });
     }];
-    [WyhLocationManager pushNotificationWithMsg:@"update location ing...(for test)"];
+//    [WyhLocationManager pushNotificationWithMsg:@"update location ing...(for test)"];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
