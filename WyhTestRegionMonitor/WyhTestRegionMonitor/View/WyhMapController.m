@@ -43,9 +43,11 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
             [self addAnnotation:annotation];
             [self addOverLayFromAnnotation:annotation];
+            [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测
         }
     }
     
+    [self zoomToUserLocationWithAnimated];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

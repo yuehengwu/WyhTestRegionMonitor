@@ -9,7 +9,8 @@
 #import "WyhLocationManager.h"
 
 
-static CGFloat const minFilter = 50;
+static CGFloat const minFilter = 10;
+
 static NSString * const saveAnnotationKey = @"saveAnnotationKey";
 static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 
@@ -34,7 +35,7 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
 
 - (instancetype)init {
     if (self = [super init]) {
-        
+        [self.locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -251,7 +252,7 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
         _locationManager = [[CLLocationManager alloc]init];
         _locationManager.delegate = self;
         [_locationManager requestAlwaysAuthorization];//8.0系统
-        [_locationManager setAllowsBackgroundLocationUpdates:YES];//9.0系统
+//        [_locationManager setAllowsBackgroundLocationUpdates:YES];//9.0系统
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         _locationManager.distanceFilter = minFilter;
     }
