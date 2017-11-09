@@ -234,9 +234,7 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
     [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:[[CLLocation alloc] initWithLatitude:annodation.coordinate.latitude longitude:annodation.coordinate.longitude]];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"%@已开始监测",region.identifier]];
-}
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {}
 
 // 监控region失败
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
