@@ -111,10 +111,12 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
 }
 
 - (void)switchDefenseLocationWithAnimated {
-    _currentDefenseAreaIndex = (_currentDefenseAreaIndex+1)<[WyhLocationManager shareInstance].annotationArr.count?(_currentDefenseAreaIndex+1):0; //找到下一个引用计数
+    
     if ([WyhLocationManager shareInstance].annotationArr.count <= 0) {
         return;
     }
+    _currentDefenseAreaIndex = (_currentDefenseAreaIndex+1)<[WyhLocationManager shareInstance].annotationArr.count?(_currentDefenseAreaIndex+1):0; //找到下一个引用计数
+    
     WyhAnnotation *nextAnnotation = [WyhLocationManager shareInstance].annotationArr[_currentDefenseAreaIndex];
     if (nextAnnotation) {
         for (WyhAnnotation *annotation in self.mapView.annotations) {

@@ -117,27 +117,29 @@
 }
 
 - (NSMutableArray *)dataSource {
-    _dataSource = [NSMutableArray arrayWithArray:[WyhLocationManager getUserInfosFromUD]];
-    //需要倒序
-    [_dataSource sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        NSDictionary *dict1 = obj1;
-        NSDictionary *dict2 = obj2;
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        
-        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-        
-        NSDate *date1= [dateFormatter dateFromString:dict1[@"time"]];
-        NSDate *date2= [dateFormatter dateFromString:dict2[@"time"]];
-        
-        if (date1 == [date1 earlierDate: date2]) { //不使用intValue比较无效
-            return NSOrderedDescending;//降序
-        }else if (date1 == [date1 laterDate: date2]) {
-            return NSOrderedAscending;//升序
-        }else{
-            return NSOrderedSame;//相等
-        }
-    }];
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray arrayWithArray:[WyhLocationManager getUserInfosFromUD]];
+        //需要倒序
+        [_dataSource sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            NSDictionary *dict1 = obj1;
+            NSDictionary *dict2 = obj2;
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            
+            [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+            
+            NSDate *date1= [dateFormatter dateFromString:dict1[@"time"]];
+            NSDate *date2= [dateFormatter dateFromString:dict2[@"time"]];
+            
+            if (date1 == [date1 earlierDate: date2]) { //不使用intValue比较无效
+                return NSOrderedDescending;//降序
+            }else if (date1 == [date1 laterDate: date2]) {
+                return NSOrderedAscending;//升序
+            }else{
+                return NSOrderedSame;//相等
+            }
+        }];
+    }
     return _dataSource;
 }
 
