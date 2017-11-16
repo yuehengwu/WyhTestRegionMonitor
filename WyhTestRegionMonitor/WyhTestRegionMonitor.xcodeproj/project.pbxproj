@@ -648,7 +648,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29HA8N9RQ5;
+				DEVELOPMENT_TEAM = BMUQH3K6HK;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WyhTestRegionMonitor/PrefixHeader.pch";
 				INFOPLIST_FILE = WyhTestRegionMonitor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -665,7 +665,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 29HA8N9RQ5;
+				DEVELOPMENT_TEAM = BMUQH3K6HK;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/WyhTestRegionMonitor/PrefixHeader.pch";
 				INFOPLIST_FILE = WyhTestRegionMonitor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

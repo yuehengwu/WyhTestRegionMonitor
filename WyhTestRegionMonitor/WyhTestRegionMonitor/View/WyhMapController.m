@@ -166,6 +166,7 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
     }
     
     [self.mapView addAnnotation:annotation];
+    [self selectAnnotation:annotation];
     self.currentTempAnnotation = annotation;
 //    [self.mapView addOverlay:[MKCircle circleWithCenterCoordinate:annotation.coordinate radius:annotation.radius]];
 }
@@ -314,11 +315,12 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
  annotationView添加后自动选中
  */
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray<MKAnnotationView *> *)views {
-    for (MKAnnotationView *view in views) {
-        if ([view.annotation isKindOfClass:[WyhAnnotation class]]) {
-            [self performSelector:@selector(selectAnnotation:) withObject:view.annotation afterDelay:0.1];
-        }
-    }
+    
+//    for (MKAnnotationView *view in views) {
+//        if ([view.annotation isKindOfClass:[WyhAnnotation class]]) {
+//            [self performSelector:@selector(selectAnnotation:) withObject:view.annotation afterDelay:0.1];
+//        }
+//    }
 }
 
 
@@ -356,10 +358,10 @@ static CGFloat const kDefaultLocationDistance = 2000.0f;
         }
         case MKAnnotationViewDragStateEnding: {
             NSLog(@"放下大头针Start");
-            WyhAnnotation *annotation = (WyhAnnotation *)view.annotation;
-            [annotation reverseGeocodeLocationWithCompleteHandler:^(WyhAnnotation *anno) {
-                
-            }];
+//            WyhAnnotation *annotation = (WyhAnnotation *)view.annotation;
+//            [annotation reverseGeocodeLocationWithCompleteHandler:^(WyhAnnotation *anno) {
+//                
+//            }];
             NSLog(@"放下大头针End");
             return;
         }
