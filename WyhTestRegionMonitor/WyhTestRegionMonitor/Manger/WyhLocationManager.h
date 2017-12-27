@@ -34,6 +34,8 @@
 
 + (BOOL)removeUserLocationInfoFromTime:(NSString *)time;
 
++ (BOOL)clearAllUserLocationInfos;
+
 /**
  打印所有添加过的防区信息
  */

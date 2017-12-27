@@ -30,13 +30,13 @@
     
     //如果app是由CoreLocation event唤醒的 则需要开始监听
     [WyhLocationManager startMonitor];
-    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
-        if ([WyhLocationManager shareInstance].annotationArr.count != 0) {
-            for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
-                [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测各个防区
-            }
-        }
-    }
+//    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
+//        if ([WyhLocationManager shareInstance].annotationArr.count != 0) {
+//            for (WyhAnnotation *annotation in [WyhLocationManager shareInstance].annotationArr) {
+//                [WyhLocationManager startMonitorRegionWithAnnotation:annotation]; //开始检测各个防区
+//            }
+//        }
+//    }
     return YES;
 }
 

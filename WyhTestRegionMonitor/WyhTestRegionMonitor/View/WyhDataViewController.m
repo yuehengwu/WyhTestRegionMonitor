@@ -23,17 +23,50 @@
     [super viewDidLoad];
     self.navigationItem.title = @"数据";
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"All Clear" style:(UIBarButtonItemStylePlain) target:self action:@selector(clearAllData)];
+    
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(64.0f, 0, 0, 0));
     }];
     
+    [self sortDataSource];
     [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)reloadData {
     [self.tableView reloadData];
     [self.tableView.mj_header endRefreshing];
+}
+
+- (void)clearAllData {
+    
+    if([WyhLocationManager clearAllUserLocationInfos]) {
+        [self.tableView reloadData];
+    }
+}
+
+- (void)sortDataSource {
+    //需要倒序
+    [self.dataSource sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSDictionary *dict1 = obj1;
+        NSDictionary *dict2 = obj2;
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+        
+        NSDate *date1= [dateFormatter dateFromString:dict1[@"time"]];
+        NSDate *date2= [dateFormatter dateFromString:dict2[@"time"]];
+        
+        if (date1 == [date1 earlierDate: date2]) { //不使用intValue比较无效
+            return NSOrderedDescending;//降序
+        }else if (date1 == [date1 laterDate: date2]) {
+            return NSOrderedAscending;//升序
+        }else{
+            return NSOrderedSame;//相等
+        }
+    }];
 }
 
 #pragma mark - tableView delegate
@@ -117,29 +150,7 @@
 }
 
 - (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray arrayWithArray:[WyhLocationManager getUserInfosFromUD]];
-        //需要倒序
-        [_dataSource sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            NSDictionary *dict1 = obj1;
-            NSDictionary *dict2 = obj2;
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            
-            [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
-            
-            NSDate *date1= [dateFormatter dateFromString:dict1[@"time"]];
-            NSDate *date2= [dateFormatter dateFromString:dict2[@"time"]];
-            
-            if (date1 == [date1 earlierDate: date2]) { //不使用intValue比较无效
-                return NSOrderedDescending;//降序
-            }else if (date1 == [date1 laterDate: date2]) {
-                return NSOrderedAscending;//升序
-            }else{
-                return NSOrderedSame;//相等
-            }
-        }];
-    }
+    _dataSource = [NSMutableArray arrayWithArray:[WyhLocationManager getUserInfosFromUD]];
     return _dataSource;
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "WyhLocationManager.h"
-
+#import <UserNotifications/UserNotifications.h>
 
 static CGFloat const minFilter = 10;
 
@@ -52,6 +52,7 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
         }
     }else {
         if (msg) {
+//            UNNotificationRequest
             UILocalNotification *localNoti = [[UILocalNotification alloc] init];
             localNoti.alertBody = msg;
             localNoti.soundName = UILocalNotificationDefaultSoundName;
@@ -84,6 +85,11 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
         idx++;
     }
     [USER_DEFAULT setValue:tempCopyArr forKey:saveUserLocationInfoKey];
+    return [USER_DEFAULT synchronize];
+}
+
++ (BOOL)clearAllUserLocationInfos {
+    [USER_DEFAULT removeObjectForKey:saveUserLocationInfoKey];
     return [USER_DEFAULT synchronize];
 }
 
@@ -219,6 +225,18 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
     }
     NSString *tip = [NSString stringWithFormat:@"您已进入%@(防区)",annodation.title];
 //    [WyhLocationManager pushNotificationWithMsg:tip];
+    static int timeIndex = 0;
+    if (@available(iOS 10.0, *)) {
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            timeIndex++;
+            [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"测试进入防区唤醒时长，当前时长为:%zd",timeIndex]];
+            NSLog(@"测试进入防区唤醒时长，当前时长为:%d",timeIndex);
+        }];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    } else {
+        // Fallback on earlier versions
+    }
+    
     [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:[[CLLocation alloc] initWithLatitude:annodation.coordinate.latitude longitude:annodation.coordinate.longitude]];
 }
 
@@ -232,6 +250,18 @@ static NSString * const saveUserLocationInfoKey = @"saveUserLocationInfoKey";
     NSString *tip = [NSString stringWithFormat:@"您已离开%@(防区)",annodation.title];
 //    [WyhLocationManager pushNotificationWithMsg:tip];
     [WyhLocationManager saveUserCurrentLocationInfoWithTitle:tip Location:[[CLLocation alloc] initWithLatitude:annodation.coordinate.latitude longitude:annodation.coordinate.longitude]];
+    static int timeIndex = 0;
+    
+    if (@available(iOS 10.0, *)) {
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            timeIndex++;
+            [WyhLocationManager pushNotificationWithMsg:[NSString stringWithFormat:@"测试离开唤醒时长，当前时长为:%zd",timeIndex]];
+            NSLog(@"测试离开唤醒时长，当前时长为:%d",timeIndex);
+        }];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {}
